@@ -1,6 +1,6 @@
 # Maxos Engine
 
-**Version:** 0.2.0 — chart-driven browser engine foundation
+**Version:** 0.3.0 — mod-ready browser engine foundation
 
 Maxos Engine is an original Friday Night Funkin'-style rhythm-game engine project. It is not Psych Engine and does not include FNF's copyrighted art, music, or source code.
 
@@ -37,11 +37,11 @@ All note times and sustain durations are in milliseconds. Lane numbers are zero-
 
 ## Roadmap
 
-- **0.3:** Proper sustain-note hold/release gameplay, BPM changes, section-based charts, and timing/accuracy improvements
-- **0.4:** Visual chart timeline, song/difficulty selection, character/stage assets and animation hooks
-- **0.5:** Mod folder conventions, events, and a safe scripting API
+- **0.4:** Proper sustain-note hold/release gameplay, BPM changes, section-based charts, and timing/accuracy improvements
+- **0.5:** Visual chart timeline, song/difficulty selection, character/stage assets and animation hooks
+- **0.6:** Character/stage asset packs, events, and a safe scripting API
 - **1.0:** Native desktop packaging, settings, testing, and complete documentation
 
 ## Current limitations
 
-This is an early engine foundation, not feature-equivalent to Psych Engine yet. Sustain durations are stored and rendered as tails, but full hold-note scoring/release logic is not implemented. The chart editor is currently an add-note form rather than a waveform timeline editor. Character animation, stage loading, Lua/HScript compatibility, BPM-change sections, and native desktop builds are future work.
+This is an early engine foundation, not feature-equivalent to Psych Engine yet. The Mod Manager loads manifest-based data mods containing custom charts and optional audio files; it does not execute arbitrary mod code. Sustain durations are stored and rendered as tails, but full hold-note scoring/release logic is not implemented. The chart editor is currently an add-note form rather than a waveform timeline editor. Character/stage asset replacement, mod load order, Lua/HScript compatibility, BPM-change sections, and native desktop builds are future work. Mod-folder selection is intended for desktop browsers.
