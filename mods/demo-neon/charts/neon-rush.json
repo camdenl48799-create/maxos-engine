@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "song": "Neon Rush",
+  "bpm": 120,
+  "offset": 0,
+  "notes": [
+    { "time": 1500, "lane": 0, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 1750, "lane": 1, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 2000, "lane": 2, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 2250, "lane": 3, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 2500, "lane": 2, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 2750, "lane": 0, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 3000, "lane": 3, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 3250, "lane": 1, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 1500, "lane": 1, "side": "opponent", "type": "tap", "sustain": 0 },
+    { "time": 2500, "lane": 3, "side": "opponent", "type": "tap", "sustain": 0 },
+    { "time": 3500, "lane": 0, "side": "opponent", "type": "tap", "sustain": 0 },
+    { "time": 4000, "lane": 2, "side": "opponent", "type": "tap", "sustain": 0 },
+    { "time": 4250, "lane": 1, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 4500, "lane": 2, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 4750, "lane": 3, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 5000, "lane": 0, "side": "player", "type": "tap", "sustain": 0 }
+  ]
+}
