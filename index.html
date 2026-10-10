@@ -12,7 +12,7 @@
 </head>
 <body>
 <main class="app">
-<header><div><h1>Maxos <span>Engine</span></h1><div class="sub">FNF-style rhythm engine • v0.2.0 • chart-driven gameplay</div></div>
+<header><div><h1>Maxos <span>Engine</span></h1><div class="sub">FNF-style rhythm engine • v0.3.0 • mod-ready chart-driven gameplay</div></div>
 <div class="stats">
 <div class="stat"><small>SCORE</small><b id="score">0</b></div><div class="stat"><small>COMBO</small><b id="combo">0</b></div><div class="stat"><small>ACCURACY</small><b id="accuracy">100.0%</b></div><div class="stat"><small>RATING</small><b id="rating">—</b></div><div class="stat"><small>MISSES</small><b id="misses">0</b></div>
 </div></header>
@@ -24,12 +24,13 @@
 <div class="panel"><h2>Song audio</h2><div class="field"><label for="audioFile">Load your own audio file (MP3, WAV, OGG if supported by your browser)</label><input id="audioFile" class="file" type="file" accept="audio/*"></div><audio id="audio" preload="metadata"></audio><p class="help">Maxos uses the audio playback clock for timing when a song is loaded. Your audio stays in your browser; it is not uploaded.</p></div>
 </section>
 <aside class="side">
+<div class="panel"><h2>Mod Manager</h2><p class="help">Load a mod folder with mod.json, custom charts, and optional song audio. The included Neon Practice Pack loads automatically.</p><div class="field"><label for="modFolder">Import a mod folder (desktop browser)</label><input id="modFolder" class="file" type="file" webkitdirectory directory multiple></div><div class="field"><label for="modSelect">Installed mod</label><select id="modSelect"><option value="">Loading mods…</option></select></div><div class="field"><label for="modSongSelect">Song in selected mod</label><select id="modSongSelect"><option value="">Choose a mod first</option></select></div><div id="modInfo" class="help">Loading bundled mod…</div></div>
 <div class="panel"><h2>Chart file</h2><div class="field"><label for="chartFile">Import a Maxos JSON chart</label><input id="chartFile" class="file" type="file" accept=".json,application/json"></div><button id="exportBtn" class="btn primary" style="width:100%">EXPORT CHART JSON</button><p class="help">Charts store note times in milliseconds, lane (0–3), side (player/opponent), note type, and sustain duration.</p></div>
 <div class="panel"><h2>Chart settings</h2><div class="field"><label for="songName">Song name</label><input id="songName" value="Maxos Practice" maxlength="100"></div><div class="row"><div class="field"><label for="bpm">BPM</label><input id="bpm" type="number" min="1" max="500" value="110"></div><div class="field"><label for="offset">Offset (ms)</label><input id="offset" type="number" value="0"></div></div><div class="muted" id="chartCount">0 notes</div></div>
 <div class="panel"><h2>Chart editor · add note</h2><div class="field"><label>Side</label><div class="side-pick"><button id="sidePlayer" class="selected">Player</button><button id="sideOpponent">Opponent</button></div></div><div class="field"><label>Lane</label><div class="lane-pick"><button data-lane="0" class="selected">← LEFT</button><button data-lane="1">↓ DOWN</button><button data-lane="2">↑ UP</button><button data-lane="3">→ RIGHT</button></div></div><div class="row"><div class="field"><label for="noteTime">Time (ms)</label><input id="noteTime" type="number" min="0" step="10" value="1500"></div><div class="field"><label for="noteSustain">Hold (ms)</label><input id="noteSustain" type="number" min="0" step="50" value="0"></div></div><div class="controls"><button id="addNoteBtn" class="btn primary">ADD NOTE</button><button id="deleteLastBtn">DELETE LAST</button></div><h2 style="margin-top:15px">Chart preview</h2><pre id="chartPreview" class="preview">Loading chart…</pre></div>
 </aside>
 </div>
-<footer><span>Maxos Engine • original FNF-style project, not Psych Engine.</span><span>Keys: ← ↓ ↑ → or A S W D • load your own chart and audio</span></footer>
+<footer><span>Maxos Engine • mod packs supported • original FNF-style project.</span><span>Keys: ← ↓ ↑ → or A S W D • load your own chart and audio</span></footer>
 </main>
 <script type="module" src="./engine/main.js"></script>
 </body>
