@@ -30,8 +30,7 @@ function syncChartUI() {
   ).join("\n") || "No notes yet.";
   updateStats();
 }
-function updateStats() {
-  const s = session;
+function updateStats(s = session) {
   $("score").textContent = s ? s.score.toLocaleString() : "0";
   $("combo").textContent = s ? s.combo : "0";
   $("accuracy").textContent = s ? s.accuracy.toFixed(1)+"%" : "100.0%";
