@@ -2,6 +2,7 @@ import { makeDemoChart, validateChart, downloadChart } from "./chart.js";
 import { AudioClock } from "./audio-clock.js";
 import { GameplaySession, KEY_CODES } from "./gameplay.js";
 import { GameRenderer } from "./renderer.js";
+import { loadModFolder, loadBundledMod } from "./mod-loader.js";
 
 const $ = id => document.getElementById(id);
 const canvas = $("game");
@@ -15,6 +16,9 @@ let held = new Set();
 let editorLane = 0;
 let editorSide = "player";
 let animationFrame = 0;
+let installedMods = [];
+let activeModId = "";
+let activeModSongId = "";
 
 function setStatus(message, isError=false) {
   $("status").textContent = message;
@@ -98,7 +102,88 @@ function chooseSide(side) {
   $("sideOpponent").classList.toggle("selected",side==="opponent");
 }
 
+function cloneChart(source) {
+  return JSON.parse(JSON.stringify(source));
+}
+
+function refreshModSelect(preferredId = "") {
+  const select = $("modSelect");
+  select.replaceChildren();
+  for (const mod of installedMods) {
+    const option = document.createElement("option");
+    option.value = mod.id;
+    option.textContent = mod.name + " v" + mod.version;
+    select.append(option);
+  }
+  if (!installedMods.length) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "No mods loaded";
+    select.append(option);
+    $("modSongSelect").replaceChildren();
+    $("modInfo").textContent = "Load a folder containing mod.json to install a mod.";
+    return;
+  }
+  select.value = installedMods.some(mod => mod.id === preferredId) ? preferredId : installedMods[0].id;
+  selectMod(select.value);
+}
+
+function selectMod(modId) {
+  const mod = installedMods.find(item => item.id === modId);
+  const songSelect = $("modSongSelect");
+  songSelect.replaceChildren();
+  if (!mod) return;
+  activeModId = mod.id;
+  for (const song of mod.songs) {
+    const option = document.createElement("option");
+    option.value = song.id;
+    option.textContent = song.title;
+    songSelect.append(option);
+  }
+  $("modInfo").textContent = mod.description + " • by " + mod.author + " • " + mod.songs.length + " song(s)";
+  if (mod.songs.length) {
+    songSelect.value = mod.songs[0].id;
+    selectModSong(songSelect.value).catch(error => setStatus(error.message, true));
+  }
+}
+
+async function selectModSong(songId) {
+  const mod = installedMods.find(item => item.id === activeModId);
+  const song = mod?.songs.find(item => item.id === songId);
+  if (!song) return;
+  clock.pause();
+  try {
+    if (song.audioFile) await clock.loadFile(song.audioFile);
+    else clock.clearAudio();
+  } catch (error) {
+    setStatus("Mod audio failed to load: " + error.message, true);
+    return;
+  }
+  activeModSongId = song.id;
+  chart = cloneChart(song.chart);
+  resetSession();
+  syncChartUI();
+  setState("ready");
+  setStatus("Loaded mod song: " + mod.name + " / " + song.title + (song.audioFile ? " (audio synchronized)." : " (practice clock; no audio included)."));
+}
+
 $("playBtn").addEventListener("click",togglePlay);
+$("modSelect").addEventListener("change",e=>selectMod(e.target.value));
+$("modSongSelect").addEventListener("change",e=>selectModSong(e.target.value).catch(error=>setStatus(error.message,true)));
+$("modFolder").addEventListener("change",async e=>{
+  if (!e.target.files?.length) return;
+  try {
+    const mod = await loadModFolder(e.target.files);
+    installedMods = installedMods.filter(item => item.id !== mod.id);
+    installedMods.push(mod);
+    refreshModSelect(mod.id);
+    setStatus("Installed mod pack: " + mod.name + " (" + mod.songs.length + " song(s)).");
+  } catch (error) {
+    setStatus("Mod load failed: " + error.message, true);
+  } finally {
+    e.target.value = "";
+  }
+});
 $("resetBtn").addEventListener("click",()=>{clock.pause();resetSession();setState("ready");setStatus("Chart reset. Ready to play.");});
 $("audioFile").addEventListener("change",async e=>{
   const file=e.target.files?.[0]; if(!file)return;
@@ -164,6 +249,12 @@ syncChartUI();
 chooseLane(0);
 chooseSide("player");
 setState("ready");
-setStatus("Ready. Play the included practice chart or load your own audio and JSON chart.");
+setStatus("Loading bundled mod packs…");
 renderer.draw(null,0,state);
 animationFrame=requestAnimationFrame(frame);
+loadBundledMod("../mods/demo-neon/").then(mod => {
+  installedMods.push(mod);
+  refreshModSelect(mod.id);
+}).catch(error => {
+  setStatus("Could not load the bundled example mod: " + error.message, true);
+});
