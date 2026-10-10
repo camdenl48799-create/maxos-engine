@@ -1,0 +1,16 @@
+{
+  "format": "maxos-mod",
+  "apiVersion": 1,
+  "id": "neon-practice",
+  "name": "Neon Practice Pack",
+  "version": "1.0.0",
+  "author": "Maxos Engine",
+  "description": "A small example mod pack demonstrating custom charts and the Maxos manifest format.",
+  "songs": [
+    {
+      "id": "neon-rush",
+      "title": "Neon Rush",
+      "chart": "charts/neon-rush.json"
+    }
+  ]
+}
