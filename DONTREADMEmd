@@ -1,33 +1,47 @@
 # Maxos Engine
 
-**Version:** 0.1.0 — playable browser prototype
+**Version:** 0.2.0 — chart-driven browser engine foundation
 
-Maxos Engine is an original FNF-style rhythm-game prototype. It is inspired by four-lane rhythm gameplay, but it is not Psych Engine and does not include copyrighted FNF art, music, or source code.
+Maxos Engine is an original Friday Night Funkin'-style rhythm-game engine project. It is not Psych Engine and does not include FNF's copyrighted art, music, or source code.
 
-## Try it
-Open [index.html](./index.html) in a modern browser. No installation, server, API key, or external assets are required.
+## Run it
 
-## Controls
-- **Arrow keys** or **A / S / W / D** to hit the four lanes.
-- You can also click or tap a lane.
-- **Escape** pauses the round; starting again restarts it.
+Serve this repository with a static web server (for example, enable GitHub Pages for the repository). The game uses JavaScript ES modules, which generally do not load correctly from a local `file://` URL. No build step or package install is required.
 
-## Prototype features
-- Four-lane falling-note gameplay
-- Random demo chart at 110 BPM
-- SICK / GOOD / OK / MISS judgments
-- Score, combo, accuracy, rating, health bar, and hit effects
-- Restartable 45-second demo round
+## Current systems
 
-## Known limitations
-- Demo chart is randomly generated each round.
-- No music playback or audio-clock synchronization yet.
-- No chart editor, custom song import, mod loader, characters, stages, Lua, or native desktop build yet.
+- Eight receptor columns: four opponent lanes and four player lanes
+- Song clock synchronized to a locally selected audio file
+- Fixed practice chart with reproducible notes (not random notes)
+- Chart JSON import/export and validation
+- Chart editor controls for song name, BPM, offset, lane, side, timestamp, and sustain duration
+- Judgments, score, combo, accuracy, misses, health, and end-of-chart state
+- Keyboard controls: arrows or A/S/W/D
+
+## Chart JSON format
+
+All note times and sustain durations are in milliseconds. Lane numbers are zero-based: 0 = left, 1 = down, 2 = up, 3 = right.
+
+```json
+{
+  "version": 1,
+  "song": "Example Song",
+  "bpm": 110,
+  "offset": 0,
+  "notes": [
+    { "time": 1500, "lane": 0, "side": "player", "type": "tap", "sustain": 0 },
+    { "time": 1900, "lane": 2, "side": "opponent", "type": "tap", "sustain": 0 }
+  ]
+}
+```
 
 ## Roadmap
-- **0.2.0:** Audio playback, synchronized timing, JSON chart loading and saving
-- **0.3.0:** Chart editor, BPM changes, note placement and sustain notes
-- **0.4.0:** Song/week menu, characters, stages and gameplay events
-- **0.5.0:** Mod folder conventions and scripting support
-- **1.0.0:** Polished desktop build and documentation
 
+- **0.3:** Proper sustain-note hold/release gameplay, BPM changes, section-based charts, and timing/accuracy improvements
+- **0.4:** Visual chart timeline, song/difficulty selection, character/stage assets and animation hooks
+- **0.5:** Mod folder conventions, events, and a safe scripting API
+- **1.0:** Native desktop packaging, settings, testing, and complete documentation
+
+## Current limitations
+
+This is an early engine foundation, not feature-equivalent to Psych Engine yet. Sustain durations are stored and rendered as tails, but full hold-note scoring/release logic is not implemented. The chart editor is currently an add-note form rather than a waveform timeline editor. Character animation, stage loading, Lua/HScript compatibility, BPM-change sections, and native desktop builds are future work.
