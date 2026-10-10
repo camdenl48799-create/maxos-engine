@@ -29,6 +29,16 @@ export class AudioClock {
     this.pausedAt = 0;
   }
 
+  clearAudio() {
+    this.audio.pause();
+    if (this.audio.src.startsWith("blob:")) URL.revokeObjectURL(this.audio.src);
+    this.audio.removeAttribute("src");
+    this.audio.load();
+    this.hasAudio = false;
+    this.pausedAt = 0;
+    this.running = false;
+  }
+
   async start(fromMs = 0) {
     this.pausedAt = Math.max(0, fromMs);
     if (this.hasAudio && this.audio.src) {
