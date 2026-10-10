@@ -1,5 +1,7 @@
 # Maxos Engine
 
+**Official mascot:** Maxos the Dog — a cheerful floppy-eared dog wearing a neon gaming headset and cyan collar. The mascot artwork lives at [`assets/maxos-dog.svg`](assets/maxos-dog.svg) and appears in the engine header.
+
 **Version:** 0.3.0 — mod-ready browser engine foundation
 
 Maxos Engine is an original Friday Night Funkin'-style rhythm-game engine project. It is not Psych Engine and does not include FNF's copyrighted art, music, or source code.
